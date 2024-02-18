@@ -1,0 +1,7 @@
+.classpath
+.project
+.settings/
+allure-results/
+target/
+test-output/
+testng.xml
