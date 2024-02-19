@@ -7,20 +7,23 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 import driverFactory.DriverInitilization;
+import google.listener.TestAllureListener;
 import pages.GooglePage;
 
 public class BaseTest {
 	DriverInitilization df;
-	WebDriver driver;
- //Properties prop;
+	public WebDriver driver;
+ Properties prop;
 	protected GooglePage gglpg;
+	protected TestAllureListener tl;
 	
 @BeforeTest
 public void setup() {
 	
 	df = new DriverInitilization();
-	//prop = df.props_init();
+	prop = df.props_init();
 	driver = df.driver_int("firefox");
+	tl = new TestAllureListener(driver);
 	 gglpg = new GooglePage(driver);
 	
 	

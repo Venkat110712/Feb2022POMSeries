@@ -13,6 +13,16 @@ import driverFactory.DriverInitilization;
 
 
 public class TestAllureListener extends DriverInitilization implements ITestListener {
+	
+	private WebDriver driver;
+	
+	public  TestAllureListener(WebDriver driver) {
+		this.driver = driver;
+	}
+
+
+
+
 
 	private static String getTestMethodName(ITestResult iTestResult) {
 		return iTestResult.getMethod().getConstructorOrMethod().getName();
@@ -21,7 +31,7 @@ public class TestAllureListener extends DriverInitilization implements ITestList
 	// Text attachments for Allure
 	@Attachment(value = "Page screenshot", type = "image/png")
 	public byte[] saveScreenshotPNG(WebDriver driver) {
-		return ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BYTES);
+		return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 	}
 
 	// Text attachments for Allure
@@ -63,9 +73,9 @@ public class TestAllureListener extends DriverInitilization implements ITestList
 		Object testClass = iTestResult.getInstance();
 		//WebDriver driver = BasePage.getDriver();
 		// Allure ScreenShotRobot and SaveTestLog
-		if (getDriver() instanceof WebDriver) {
+		if (driver instanceof WebDriver) {
 			System.out.println("Screenshot captured for test case:" + getTestMethodName(iTestResult));
-			saveScreenshotPNG(getDriver());
+			saveScreenshotPNG(driver);
 		}
 		// Save a log on allure.
 		saveTextLog(getTestMethodName(iTestResult) + " failed and screenshot taken!");		

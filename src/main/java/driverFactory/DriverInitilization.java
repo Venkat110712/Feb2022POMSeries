@@ -31,9 +31,9 @@ public class DriverInitilization {
 	 WebDriver driver;
 	Properties prop;
 	OptionsManager optionsManager;
-	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
+	//public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
 	
-	public static Logger log = Logger.getLogger(DriverInitilization.class);
+	//public static Logger log = Logger.getLogger(DriverInitilization.class);
 	
 	/**
 	 * 
@@ -71,34 +71,34 @@ public class DriverInitilization {
 	 driver.manage().window().maximize();
 	 //driver.get(prop.getProperty("www.google.com"));
 	 driver.get("https://www.google.com");
-	 return getDriver();
+	 return driver;
  }
  
-	private void init_remoteDriver(String browserName) {
+//	private void init_remoteDriver(String browserName) {
+//
+//		System.out.println("Running tests on remote grid server: " + browserName);
+//
+//		if (browserName.equalsIgnoreCase("chrome")) {
+//			try {
+//				tlDriver.set(
+//						new RemoteWebDriver(new URL(prop.getProperty("huburl")), optionsManager.getChromeOptions()));
+//			} catch (MalformedURLException e) {
+//				e.printStackTrace();
+//			}
+//		} else if (browserName.equalsIgnoreCase("firefox")) {
+//			try {
+//				tlDriver.set(
+//						new RemoteWebDriver(new URL(prop.getProperty("huburl")), optionsManager.getFirefoxOptions()));
+//			} catch (MalformedURLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//
+//	}
 
-		System.out.println("Running tests on remote grid server: " + browserName);
-
-		if (browserName.equalsIgnoreCase("chrome")) {
-			try {
-				tlDriver.set(
-						new RemoteWebDriver(new URL(prop.getProperty("huburl")), optionsManager.getChromeOptions()));
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-		} else if (browserName.equalsIgnoreCase("firefox")) {
-			try {
-				tlDriver.set(
-						new RemoteWebDriver(new URL(prop.getProperty("huburl")), optionsManager.getFirefoxOptions()));
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-	public static WebDriver getDriver() {
-		return tlDriver.get();
-	}
+//	public static WebDriver getDriver() {
+//		return tlDriver.get();
+//	}
  /**
   * 
   * @return
