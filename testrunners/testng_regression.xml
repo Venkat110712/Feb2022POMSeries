@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Open Cart Test Regression Suite" verbose="1"
+	thread-count="4" parallel="tests">
+
+	<listeners>
+		<listener
+			class-name="google.listener.ExtentReportListener" />
+		<listener
+			class-name="google.listener.TestAllureListener" />
+	
+	</listeners>
+
+	<test name="google Page Test_chrome_90">
+		<parameter name="browser" value="chrome" />
+		<parameter name="browserversion" value="90.0" />
+		<classes>
+			<class name="qa.com.google.Tests.GooglePageTest" />
+		</classes>
+	</test>
+
+	<test name="Open Cart Login Page Test_chrome_100">
+		<parameter name="browser" value="chrome" />
+		<parameter name="browserversion" value="100.0" />
+		<classes>
+			<class name="qa.com.google.Tests.GooglePageTest" />
+		</classes>
+	</test>
+
+
+
+
+
+</suite>
