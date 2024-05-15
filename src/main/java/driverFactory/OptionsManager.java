@@ -19,6 +19,7 @@ package driverFactory;
 		public ChromeOptions getChromeOptions() {
 			co = new ChromeOptions();
 			co.addArguments("--remote-allow-origins=*");
+			
 			//co.addExtensions(new File("/Users/naveenautomationlabs/Downloads/extension_1_3_4_0.crx"));
 
 			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
@@ -28,7 +29,7 @@ package driverFactory;
 
 			if (Boolean.parseBoolean(prop.getProperty("headless")))
 				//co.setHeadless(true);
-				co.addArguments("--headless=chrome");
+				co.addArguments("--headless=chrome"); 
 
 			if (Boolean.parseBoolean(prop.getProperty("incognito")))
 				co.addArguments("--incognito");

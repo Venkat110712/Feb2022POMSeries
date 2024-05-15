@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="Open Cart Test Regression Suite" verbose="1"
-	thread-count="4" parallel="tests">
+	thread-count="2" parallel="tests">
 
 	<listeners>
 		<listener
@@ -13,16 +13,16 @@
 	</listeners>
 
 	<test name="google Page Test_chrome_90">
-		<parameter name="browser" value="chrome" />
-		<parameter name="browserversion" value="90.0" />
+		<parameter name="browser" value="firefox" />
+		<parameter name="browserversion" value="120" />
 		<classes>
 			<class name="qa.com.google.Tests.GooglePageTest" />
 		</classes>
 	</test>
 
 	<test name="Open Cart Login Page Test_chrome_100">
-		<parameter name="browser" value="chrome" />
-		<parameter name="browserversion" value="100.0" />
+		<parameter name="browser" value="firefox" />
+		<parameter name="browserversion" value="121" />
 		<classes>
 			<class name="qa.com.google.Tests.GooglePageTest" />
 		</classes>

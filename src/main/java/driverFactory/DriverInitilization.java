@@ -28,7 +28,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class DriverInitilization {
 	
 	
-	 WebDriver driver;
+	 static WebDriver driver;
 	Properties prop;
 	OptionsManager optionsManager;
 	//public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
@@ -41,24 +41,46 @@ public class DriverInitilization {
 	 * @return
 	 */
 	
- public WebDriver driver_int(String browser) {
+ public WebDriver driver_int(Properties prop) {
 	 
-
+	 String browser = prop.getProperty("browser").trim();
+	 String browser123 = prop.getProperty("huburl").trim();
+	 System.out.println(browser);
+	 System.out.println(browser123);
+System.out.println("Hi venki" + browser);
+if (browser.equalsIgnoreCase("chrome")) { 
 	//String browser = "chrome";
-	 if (browser.equalsIgnoreCase("chrome")) {
+ if (Boolean.parseBoolean(prop.getProperty("remote"))) { 
+	
+	 init_remoteDriver(browser); 
+	
+ }
+ else {
 		 WebDriverManager.chromedriver().setup();
           ChromeOptions co = new ChromeOptions();
-          co.setHeadless(true);
+          co.setHeadless(Boolean.parseBoolean(prop.getProperty("headless")));
 		// co.addArguments("--remote-allow-origins=*");
 		 driver = new ChromeDriver(co);
-	 }
+	 } }
+ 
+ 
 	 else  if (browser.equalsIgnoreCase("firefox")) {
-		 WebDriverManager.firefoxdriver().setup();
-		 FirefoxOptions fo = new FirefoxOptions();
-		 fo.setHeadless(true);
-		// fo.addArguments("--remote-allow-origins=*");
-		 driver = new FirefoxDriver(fo);
-	 }
+		 
+		 if (Boolean.parseBoolean(prop.getProperty("remote"))) { 
+				
+			 init_remoteDriver(browser); 
+		 
+		 }
+		 else {
+			 System.out.println("remote true");
+			 WebDriverManager.firefoxdriver().setup();
+			 FirefoxOptions fo = new FirefoxOptions();
+			 fo.setHeadless(Boolean.parseBoolean(prop.getProperty("headless")));
+			// fo.addArguments("--remote-allow-origins=*");
+			 driver = new FirefoxDriver(fo);
+			 System.out.println("remote true1");
+			 } }	
+	 
 	 else  if (browser.equalsIgnoreCase("edge")) {
 		 WebDriverManager.edgedriver().setup();
 		// EdgeOptions eo = new EdgeOptions();
@@ -74,31 +96,37 @@ public class DriverInitilization {
 	 return driver;
  }
  
-//	private void init_remoteDriver(String browserName) {
-//
-//		System.out.println("Running tests on remote grid server: " + browserName);
-//
-//		if (browserName.equalsIgnoreCase("chrome")) {
-//			try {
-//				tlDriver.set(
-//						new RemoteWebDriver(new URL(prop.getProperty("huburl")), optionsManager.getChromeOptions()));
-//			} catch (MalformedURLException e) {
-//				e.printStackTrace();
-//			}
-//		} else if (browserName.equalsIgnoreCase("firefox")) {
-//			try {
-//				tlDriver.set(
-//						new RemoteWebDriver(new URL(prop.getProperty("huburl")), optionsManager.getFirefoxOptions()));
-//			} catch (MalformedURLException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//
-//	}
+	private void init_remoteDriver(String browserName) {
 
-//	public static WebDriver getDriver() {
-//		return tlDriver.get();
-//	}
+		System.out.println("Running tests on remote grid server: " + browserName);
+
+		if (browserName.equalsIgnoreCase("chrome")) {
+			try {
+				driver =
+						new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), optionsManager.getChromeOptions());
+				
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+		} else if (browserName.equalsIgnoreCase("firefox")) {
+		
+			try {
+				driver =
+						new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), optionsManager.getFirefoxOptions());
+				System.out.println("Hi venki hub firefox-venki");
+				String ulr = prop.getProperty("huburl");
+				System.out.println(ulr+ 123 );
+				System.out.println("hi ulr 123" );
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public static WebDriver getDriver() {
+		return driver ;
+	}
  /**
   * 
   * @return
@@ -106,7 +134,8 @@ public class DriverInitilization {
  public Properties props_init() {
 	 
 	 try {
-		FileInputStream ip = new FileInputStream("./src/test/resources/config/config.properties");
+		FileInputStream ip = new FileInputStream("./src/test/resources/config.properties");
+		//\src\test\resources\config.properties
 		prop = new Properties();
 		prop.load(ip);
 		

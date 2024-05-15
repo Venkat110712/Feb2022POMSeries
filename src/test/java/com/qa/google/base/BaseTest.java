@@ -13,17 +13,17 @@ import pages.GooglePage;
 public class BaseTest {
 	DriverInitilization df;
 	public WebDriver driver;
- Properties prop;
+ protected Properties prop;
 	protected GooglePage gglpg;
-	protected TestAllureListener tl;
+	//protected TestAllureListener tl;
 	
 @BeforeTest
 public void setup() {
 	
 	df = new DriverInitilization();
 	prop = df.props_init();
-	driver = df.driver_int("firefox");
-	tl = new TestAllureListener(driver);
+	driver = df.driver_int(prop);
+//tl = new TestAllureListener(driver);
 	 gglpg = new GooglePage(driver);
 	
 	
